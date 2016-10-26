@@ -40,7 +40,8 @@ npm run deploy
 ```
 + *pre deploy: run `Jest` with `--coverage`*；
 + *post deploy: upload coverage reports to `Coveralls`*；
-+ *All static resources will upload to [Aliyun CDN service](https://cn.aliyun.com/product/cdn)* by `aliyunoss-webpack-plugin`。
++ *webpack will be interrupted with `tslint` errors;*
++ *all static resources will upload to [Aliyun CDN service](https://cn.aliyun.com/product/cdn)* by `aliyunoss-webpack-plugin`。
 
 
 ### Serve
