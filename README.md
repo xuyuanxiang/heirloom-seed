@@ -57,11 +57,11 @@ docker run -i -t -p 80:3000 heirloom-seed:1.0
 
 ## Travis
 
-Push a new tag to Trigger Travis.
+Push a new tag to github will trigger Travis.
 ```
 git add 1.0.0
 git push origin 1.0.0
 ```
 
-Will publish a new version to [NPM](https://www.npmjs.com/) after a successful build task.
+A new version will be published to [NPM](https://www.npmjs.com/) after a successful build task.
 
