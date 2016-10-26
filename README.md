@@ -34,12 +34,14 @@ npm test
 ```
 
 ### Deploy
-Using webpack to bundle all assets in NODE_ENV: `Production` 
+Using webpack to bundle all assets under NODE_ENV: `Production`:
 ```bash
 npm run deploy
 ```
-+ *pre deploy: run `Jest` with `--coverage`*
-+ *post deploy: upload coverage reports to `Coveralls`*
++ *pre deploy: run `Jest` with `--coverage`*；
++ *post deploy: upload coverage reports to `Coveralls`*；
++ *All static resources will upload to [Aliyun CDN service](https://cn.aliyun.com/product/cdn)* by `aliyunoss-webpack-plugin`。
+
 
 ### Serve
 Using [PM2](https://github.com/Unitech/pm2) to start a [Express](https://github.com/expressjs/express) server with [compression](https://github.com/expressjs/compression) middleware.
