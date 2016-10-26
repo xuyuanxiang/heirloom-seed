@@ -14,3 +14,9 @@ Using modern front-end frameworks and utils, like:
 + [Coveralls](https://coveralls.io/)
 + [Docker](https://www.docker.com/)
  
+ 
+ ## Docker
+``
+docker build --rm=true -t heirloom-seed:1.0 .
+docker run -i -t -p 80:3000 heirloom-seed:1.0
+```
