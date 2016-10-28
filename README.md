@@ -1,4 +1,4 @@
-## heirloom-seed
+# heirloom-seed
 
 My project template for [generator-heirloom](https://github.com/xuyuanxiang/generator-heirloom).
 
@@ -42,7 +42,7 @@ npm run deploy
 + *pre deploy: run `Jest` with `--coverage`*；
 + *post deploy: upload coverage reports to `Coveralls`*；
 + *webpack will be interrupted with `tslint` errors;*
-+ *all static resources will upload to [Aliyun CDN service](https://cn.aliyun.com/product/cdn)* by `aliyunoss-webpack-plugin`。
++ *all static resources will be uploaded to [Aliyun CDN service](https://cn.aliyun.com/product/cdn)* by `aliyunoss-webpack-plugin`。
 + *[Aliyun CDN service] configs in `package.json` file*
 
 ### Serve
@@ -53,7 +53,7 @@ npm run serve
 
 ## Detect User-Agent
 
-send to different view to browser:
+send different views to browser:
 
 ```
 // ./index.js
