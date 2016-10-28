@@ -43,7 +43,7 @@ npm run deploy
 + *post deploy: upload coverage reports to `Coveralls`*；
 + *webpack will be interrupted with `tslint` errors;*
 + *all static resources will be uploaded to [Aliyun CDN service](https://cn.aliyun.com/product/cdn)* by `aliyunoss-webpack-plugin`。
-+ *[Aliyun CDN service] configs in `package.json` file*
++ *Aliyun CDN service config in `package.json` file.*
 
 ### Serve
 Using [PM2](https://github.com/Unitech/pm2) to start a [Express](https://github.com/expressjs/express) server with [compression](https://github.com/expressjs/compression) middleware.
