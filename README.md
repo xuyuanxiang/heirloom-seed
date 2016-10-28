@@ -35,7 +35,7 @@ npm test
 ```
 
 ### Deploy
-Using webpack to bundle all assets under NODE_ENV: `Production`:
+Using webpack to bundle all assets under NODE_ENV: `production`:
 ```bash
 npm run deploy
 ```
