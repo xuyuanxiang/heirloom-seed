@@ -14,15 +14,11 @@ var AliyunossWebpackPlugin = require('aliyunoss-webpack-plugin');
 var path = require('path');
 var util = require('util');
 var pkg = require('../package.json');
+var aliyun = pkg.aliyun;
 
 // Production specific configuration
 // =================================
-module.exports = {
-    output: {
-        path: path.resolve('./public'),
-        filename: util.format('%s-%s.[hash].js', pkg.name, pkg.version),
-        publicPath: '//statics.wosaimg.com/assets/'
-    },
+var production = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': JSON.stringify(process.env)
@@ -49,16 +45,6 @@ module.exports = {
             + "\nCreated by\t" + pkg.author
             + "\nCopyright © " + new Date().getFullYear() + "年 Wosai-Inc. All rights reserved."
         ),
-        new AliyunossWebpackPlugin({
-            buildPath: path.resolve('./public'),
-            region: 'oss-cn-hangzhou',
-            accessKeyId: '****',
-            accessKeySecret: '****',
-            bucket: '****',
-            generateObjectPath: function (filename) {
-                return 'assets/' + filename;
-            }
-        }),
         new HtmlWebpackPlugin({
             title: pkg.name,
             description: pkg.description,
@@ -67,3 +53,24 @@ module.exports = {
         })
     ]
 };
+
+if (aliyun.region && aliyun.accessKeyId && aliyun.accessKeySecret && aliyun.bucket) {
+    production.output = {
+        path: path.resolve('./public'),
+        filename: util.format('%s-%s.[hash].js', pkg.name, pkg.version),
+        publicPath: '//statics.wosaimg.com/assets/'
+    };
+
+    production.plugins.push(new AliyunossWebpackPlugin({
+        buildPath: path.resolve('./public'),
+        region: 'oss-cn-hangzhou',
+        accessKeyId: '****',
+        accessKeySecret: '****',
+        bucket: '****',
+        generateObjectPath: function (filename) {
+            return 'assets/' + filename;
+        }
+    }));
+}
+
+module.exports = production;

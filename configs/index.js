@@ -12,10 +12,13 @@ var path = require('path');
 var pkg = require('../package.json');
 var env = process.env.NODE_ENV;
 var configs = {
-    entry: './src/index.tsx',
+    entry: {
+        xs: './src/index.xs.tsx',
+        md: './src/index.md.tsx'
+    },
     output: {
         path: path.resolve('./public'),
-        filename: pkg.name + '.js?[hash]',
+        filename: pkg.name + '.[name].js?[hash]',
         publicPath: '/'
     },
     externals: {

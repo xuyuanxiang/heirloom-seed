@@ -5,8 +5,8 @@ class Test extends React.Component<any, any> {
         super(props);
     }
 
-    public render(): JSX.Element {
-        return <h1/>;
+    render(): JSX.Element {
+        return <a>test</a>;
     }
 }
 const container = document.createElement("div");

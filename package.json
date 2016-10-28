@@ -26,8 +26,17 @@
   "bugs": {
     "url": "https://github.com/xuyuanxiang/heirloom-seed/issues"
   },
+  "aliyun": {
+    "region": "",
+    "accessKeyId": "",
+    "accessKeySecret": "",
+    "bucket": ""
+  },
   "homepage": "https://github.com/xuyuanxiang/heirloom-seed#readme",
   "devDependencies": {
+    "@types/lodash": "^4.14.37",
+    "@types/react": "^0.14.43",
+    "@types/react-dom": "^0.14.18",
     "aliyunoss-webpack-plugin": "^0.2.0",
     "autoprefixer": "^6.5.0",
     "coveralls": "^2.11.14",

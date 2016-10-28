@@ -1,5 +1,6 @@
 ## heirloom-seed
-My general project seed. 
+
+My project template for [generator-heirloom](https://github.com/xuyuanxiang/generator-heirloom).
 
 Using modern front-end frameworks and utils, like:
 
@@ -42,7 +43,7 @@ npm run deploy
 + *post deploy: upload coverage reports to `Coveralls`*；
 + *webpack will be interrupted with `tslint` errors;*
 + *all static resources will upload to [Aliyun CDN service](https://cn.aliyun.com/product/cdn)* by `aliyunoss-webpack-plugin`。
-
++ *[Aliyun CDN service] configs in `package.json` file*
 
 ### Serve
 Using [PM2](https://github.com/Unitech/pm2) to start a [Express](https://github.com/expressjs/express) server with [compression](https://github.com/expressjs/compression) middleware.

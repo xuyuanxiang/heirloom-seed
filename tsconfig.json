@@ -6,9 +6,5 @@
     "sourceMap": true,
     "jsx": "react",
     "outDir": "./public"
-  },
-  "files": [
-    "./typings/index.d.ts",
-    "./src/index.tsx"
-  ]
+  }
 }
