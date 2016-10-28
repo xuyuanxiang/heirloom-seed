@@ -50,6 +50,24 @@ Using [PM2](https://github.com/Unitech/pm2) to start a [Express](https://github.
 ```bash
 npm run serve
 ```
+
+## Detect User-Agent
+
+send to different view to browser:
+
+```
+// ./index.js
+app.get('*', function (req, res) {
+    if (req.useragent.isMobile) {
+        res.sendFile(resolve(__dirname, './public', 'index.xs.html'))
+    } else if (req.useragent.isDesktop) {
+        res.sendFile(resolve(__dirname, './public', 'index.md.html'))
+    }
+});
+```
+
+*`req.useragent`: see [express-useragent API](https://github.com/biggora/express-useragent)*
+
 ## Docker
 ```
 docker build --rm=true -t heirloom-seed:1.0 .

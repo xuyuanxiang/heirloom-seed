@@ -68,6 +68,7 @@
   "dependencies": {
     "compression": "^1.6.2",
     "express": "^4.14.0",
+    "express-useragent": "^1.0.4",
     "pm2": "^2.0.19",
     "serve-favicon": "^2.3.0"
   }
