@@ -27,7 +27,7 @@ var configs = {
         "react-dom": "ReactDOM"
     },
     resolve: {
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", ".css", ".scss"]
     },
     module: {
         loaders: [
@@ -65,10 +65,15 @@ var configs = {
         emitErrors: true,
         failOnHint: true
     },
-    postcss: function plugins(bundler) {
+    postcss: function plugins(webpack) {
         return [
-            require('postcss-import')({addDependencyTo: bundler}),
+            require('postcss-import')({addDependencyTo: webpack}),
             require('precss')(),
+            // require("postcss-url")(),
+            // require('postcss-simple-vars')(),
+            // require("postcss-cssnext")(),
+            // require("postcss-nested")(),
+            // require("postcss-mixins")(),
             require('autoprefixer')({
                 browsers: [
                     'Android 2.3',
@@ -81,9 +86,12 @@ var configs = {
                     'Safari >= 7.1'
                 ]
             }),
+            require("postcss-browser-reporter")(),
+            require("postcss-reporter")(),
         ];
     },
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new ExtractTextPlugin(util.format('[name]/%s-%s.css?[hash]', pkg.name, pkg.version)),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new HtmlWebpackPlugin({
