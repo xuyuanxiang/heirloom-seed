@@ -1,14 +1,16 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-class Test extends React.Component<any, any> {
+
+import "./style.md.scss";
+
+class App extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
     }
 
-    render(): JSX.Element {
-        return <a>test</a>;
+    public render(): JSX.Element {
+        return <a>MD</a>;
     }
 }
-const container = document.createElement("div");
-document.body.appendChild(container);
-ReactDOM.render(<Test/>, container);
+
+ReactDOM.render(<App/>, document.getElementById("shouqianba"));

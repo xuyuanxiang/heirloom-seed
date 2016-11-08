@@ -9,6 +9,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
+var util = require('util');
 var pkg = require('../package.json');
 var env = process.env.NODE_ENV;
 var configs = {
@@ -18,7 +19,7 @@ var configs = {
     },
     output: {
         path: path.resolve('./public'),
-        filename: pkg.name + '.[name].js?[hash]',
+        filename: util.format('[name]/%s-%s.js?[hash]', pkg.name, pkg.version),
         publicPath: '/'
     },
     externals: {
@@ -83,9 +84,19 @@ var configs = {
         ];
     },
     plugins: [
-        new ExtractTextPlugin(pkg.name + '.css?[hash]'),
+        new ExtractTextPlugin(util.format('[name]/%s-%s.css?[hash]', pkg.name, pkg.version)),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new HtmlWebpackPlugin({
+            chunks: ['md'],
+            filename: "md/index.html",
+            title: pkg.name,
+            description: pkg.description,
+            keywords: pkg.keywords.join(','),
+            template: path.resolve('./src/index.ejs')
+        }),
+        new HtmlWebpackPlugin({
+            chunks: ['xs'],
+            filename: "xs/index.html",
             title: pkg.name,
             description: pkg.description,
             keywords: pkg.keywords.join(','),

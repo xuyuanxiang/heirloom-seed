@@ -11,12 +11,16 @@
   ],
   "scripts": {
     "test": "jest",
-    "start": "NODE_ENV=development webpack-dev-server --hot --progress --colors --inline --content-base public/ --history-api-fallback",
-    "build": "NODE_ENV=production BABEL_ENV=release webpack",
-    "predeploy": "NODE_ENV=production npm test -- --no-cache --coverage",
+    "prestart": "rm -rf public && pm2 kill",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "stop": "pm2 stop www",
+    "prestart:prod": "npm run build",
+    "start:prod": "pm2 start bin/www && pm2 logs",
+    "start:dev": "webpack-dev-server --hot --progress --colors --inline --content-base public/ --history-api-fallback",
+    "build": "rm -rf public && webpack",
+    "predeploy": "npm test -- --no-cache --coverage",
     "deploy": "npm run build",
-    "postdeploy": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "serve": "NODE_ENV=production pm2 start . && pm2 logs"
+    "postdeploy": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "repository": {
     "type": "git",
@@ -33,43 +37,44 @@
     "bucket": ""
   },
   "homepage": "https://github.com/xuyuanxiang/heirloom-seed#readme",
-  "devDependencies": {
-    "@types/lodash": "^4.14.37",
-    "@types/react": "^0.14.43",
-    "@types/react-dom": "^0.14.18",
+  "dependencies": {
     "aliyunoss-webpack-plugin": "^0.2.0",
     "autoprefixer": "^6.5.0",
-    "coveralls": "^2.11.14",
+    "compression": "^1.6.2",
     "css-loader": "^0.25.0",
+    "express": "^4.14.0",
+    "express-useragent": "^1.0.4",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
-    "jest": "^15.1.1",
-    "jest-cli": "^15.1.1",
+    "if-env": "^1.0.0",
     "json-loader": "^0.5.4",
-    "lodash": "^4.16.2",
     "postcss-import": "^8.1.2",
     "postcss-loader": "^0.13.0",
     "postcss-scss": "^0.3.0",
     "precss": "^1.4.0",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "source-map-loader": "^0.1.5",
+    "pm2": "^2.0.19",
+    "serve-favicon": "^2.3.0",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.9.5",
     "tslint": "^3.15.1",
     "tslint-loader": "^2.1.5",
     "tslint-react": "^1.1.0",
-    "typescript": "^2.0.6",
+    "typescript": "^2.0.8",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.1"
+    "webpack": "^1.13.3"
   },
-  "dependencies": {
-    "compression": "^1.6.2",
-    "express": "^4.14.0",
-    "express-useragent": "^1.0.4",
-    "pm2": "^2.0.19",
-    "serve-favicon": "^2.3.0"
+  "devDependencies": {
+    "@types/lodash": "^4.14.38",
+    "@types/react": "^0.14.44",
+    "@types/react-dom": "^0.14.18",
+    "coveralls": "^2.11.14",
+    "jest": "^16.0.2",
+    "jest-cli": "^16.0.2",
+    "lodash": "^4.16.6",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "source-map-loader": "^0.1.5",
+    "webpack-dev-server": "^1.16.2"
   }
 }

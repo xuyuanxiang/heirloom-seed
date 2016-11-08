@@ -45,23 +45,30 @@ npm run deploy
 + *all static resources will be uploaded to [Aliyun CDN service](https://cn.aliyun.com/product/cdn)* by `aliyunoss-webpack-plugin`。
 + *Aliyun CDN service config in `package.json` file.*
 
-### Serve
+### Product
 Using [PM2](https://github.com/Unitech/pm2) to start a [Express](https://github.com/expressjs/express) server with [compression](https://github.com/expressjs/compression) middleware.
 ```bash
-npm run serve
+NODE_ENV=production npm start
 ```
 
 ## Detect User-Agent
 
-send different views to browser:
+### Platform-specific extensions
+
+For example:
+
++ `index.md.tsx`: Desktop.
++ `index.xs.tsx`: Mobile.
+
+Send different views to browser:
 
 ```
 // ./index.js
 app.get('*', function (req, res) {
     if (req.useragent.isMobile) {
-        res.sendFile(resolve(__dirname, './public', 'index.xs.html'))
+        res.sendFile(resolve(__dirname, './public/xs', 'index.html'))
     } else if (req.useragent.isDesktop) {
-        res.sendFile(resolve(__dirname, './public', 'index.md.html'))
+        res.sendFile(resolve(__dirname, './public/md', 'index.html'))
     }
 });
 ```
@@ -71,7 +78,7 @@ app.get('*', function (req, res) {
 ## Docker
 ```
 docker build --rm=true -t heirloom-seed:1.0 .
-docker run -i -t -p 80:3000 heirloom-seed:1.0
+docker run -i -t -p 80:4000 heirloom-seed:1.0
 ```
 
 ## Travis

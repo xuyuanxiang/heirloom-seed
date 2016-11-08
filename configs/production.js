@@ -25,7 +25,7 @@ var production = {
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.DedupePlugin(),
-        new ExtractTextPlugin(util.format('%s-%s.[hash].css', pkg.name, pkg.version)),
+        new ExtractTextPlugin(util.format('[name]/%s-%s.css?[hash]', pkg.name, pkg.version)),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
@@ -41,11 +41,21 @@ var production = {
             }
         }),
         new webpack.BannerPlugin(
-            pkg.name + pkg.version
+            pkg.name + "_v" + pkg.version
             + "\nCreated by\t" + pkg.author
             + "\nCopyright © " + new Date().getFullYear() + "年 Wosai-Inc. All rights reserved."
         ),
         new HtmlWebpackPlugin({
+            chunks: ['md'],
+            filename: "md/index.html",
+            title: pkg.name,
+            description: pkg.description,
+            keywords: pkg.keywords.join(','),
+            template: path.resolve('./src/index.ejs')
+        }),
+        new HtmlWebpackPlugin({
+            chunks: ['xs'],
+            filename: "xs/index.html",
             title: pkg.name,
             description: pkg.description,
             keywords: pkg.keywords.join(','),
@@ -64,9 +74,9 @@ if (aliyun.region && aliyun.accessKeyId && aliyun.accessKeySecret && aliyun.buck
     production.plugins.push(new AliyunossWebpackPlugin({
         buildPath: path.resolve('./public'),
         region: 'oss-cn-hangzhou',
-        accessKeyId: '****',
-        accessKeySecret: '****',
-        bucket: '****',
+        accessKeyId: pkg.aliyun.accessKeyId,
+        accessKeySecret: pkg.aliyun.accessKeySecret,
+        bucket: pkg.aliyun.bucket,
         generateObjectPath: function (filename) {
             return 'assets/' + filename;
         }
