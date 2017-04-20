@@ -37,6 +37,14 @@ open http://localhost:3000
 
 + **PORT**: 服务监听端口，缺省：`3000`；
 
+### 其他
+
+例如：
+
++ **BACK_END_HEIRLOOM_SERVICE**: 后端某个服务的域名
+
+可使用**heirloom-static-plugin**的构造参数：[define](https://github.com/xuyuanxiang/heirloom-static-plugin#环境变量) 传入。
+
 ## 脚本命令
 
 ### 本地开发调试
@@ -121,13 +129,11 @@ import bootstrap from 'core/bootstrap';
 
 ### 推荐的姿势
 
-![姿势](http://images.wosaimg.com/c5/79e50381bed4e4059b97247863c8b1d15b6ab7.png)
+![姿势](http://7xn35h.com1.z0.glb.clouddn.com/79e50381bed4e4059b97247863c8b1d15b6ab7.png)
 
-### 关于`apiClient.js`和`marketingService.js`中间件
+### `apiClient.js`中间件
 
-![中间件](http://images.wosaimg.com/01/fa407eaa0f0ca6ae96f57ddb79d37d8ced83fe.png)
-
-#### `apiClient.js`
+![中间件](http://7xn35h.com1.z0.glb.clouddn.com/fa407eaa0f0ca6ae96f57ddb79d37d8ced83fe.png)
 
 负责解析API类型的Action，发起请求、统一授权以及接收响应、错误处理等。
 
@@ -170,7 +176,6 @@ await request...  //  等待Ajax异步请求结束
 ```
 
 其中，凡是位于**API类型的Action之后**的Action将会在这个异步请求完成后，才会被dispatch。
-
 
 ### 业务模块代码组织方式
 
