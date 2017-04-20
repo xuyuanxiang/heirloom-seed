@@ -129,11 +129,11 @@ import bootstrap from 'core/bootstrap';
 
 ### 推荐的姿势
 
-![姿势](http://7xn35h.com1.z0.glb.clouddn.com/79e50381bed4e4059b97247863c8b1d15b6ab7.png)
+![姿势](http://cdn.xuyuanxiang.me/79e50381bed4e4059b97247863c8b1d15b6ab7.png)
 
 ### `apiClient.js`中间件
 
-![中间件](http://7xn35h.com1.z0.glb.clouddn.com/fa407eaa0f0ca6ae96f57ddb79d37d8ced83fe.png)
+![中间件](http://cdn.xuyuanxiang.me/fa407eaa0f0ca6ae96f57ddb79d37d8ced83fe.png)
 
 负责解析API类型的Action，发起请求、统一授权以及接收响应、错误处理等。
 
