@@ -341,7 +341,7 @@ export default connect(
 
 ### 编辑`modules/sample/__tests__/SampleApp.spec.js`
 
-SampleApp组件的单元测试（其他文件单元测试文件略）：
+SampleApp组件的单元测试（其他文件单元测试文件略）,编写过程中可以执行：`npm run test -- --watch`：
 
 ```javascript
 /**
@@ -443,7 +443,7 @@ describe('SampleApp suite', () => {
 
 ```
 
-#### 编辑`public/sample/index.js`
+### 编辑`public/sample/index.js`
 
 ```javascript
 import 'babel-polyfill';
@@ -472,7 +472,7 @@ bootstrap(ConnectedSampleApp, {
 });
 ```
 
-#### 编辑`public/sample/package.json`
+### 编辑`public/sample/package.json`
 
 ```json
 {
@@ -481,7 +481,11 @@ bootstrap(ConnectedSampleApp, {
 }
 ```
 
-#### 编辑`api/__mocks__/v1/sample.js`
+*到此时，执行`npm run dev && open http://localhost:3000/sample`将会看到页面显示：`查询Sample失败：系统繁忙！请稍后重试。`的错误信息。*
+
+### 编辑`api/__mocks__/v1/sample.js`
+
+Mock一个供`NODE_ENV=development`时调用的sample接口:
 
 ```javascript
 require('isomorphic-fetch');
@@ -498,7 +502,7 @@ exports.default = function* sampleApi() {
 };
 ```
 
-**其余代码略，完整的`sample`示例代码详见：`feature/example`分支。**
+**到此为止，编码结束。完整的`sample`示例代码详见：`feature/example`分支。**
 
 #### 启动
 
