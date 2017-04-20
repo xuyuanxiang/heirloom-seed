@@ -1,7 +1,7 @@
 FROM node:6.10
 MAINTAINER xuyuanxiang@wosai-inc.com
 WORKDIR /app
-ARG API_ROOT
+ARG BACK_END
 ENV PORT 3000
 ENV NODE_ENV production
 ENV SASS_BINARY_SITE https://npm.taobao.org/mirrors/node-sass/
