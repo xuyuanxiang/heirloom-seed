@@ -199,7 +199,8 @@ api/--------------------------------------后端不支持跨域的接口透传
 │    └── v1/----------------------------------路径
 │          └── sample.js/------------------------sample接口
 flow-typed/-----------------------------------flow JS 申明文件
-├── sample.js/------------------------------sample模块的申明文件
+├── global.js/---------------------------------全局flow type申明文件
+├── sample.js/---------------------------------sample模块flow type申明文件
 modules/----------------------------------项目源码
 ├── sample/---------------------------------模块目录
 │   ├── __tests__/-------------------------sample模块单元测试
@@ -221,9 +222,32 @@ public/------------------------------------项目源码
 │   └── package.json--------------------------配置申明，详见heirloom-static-plugin用法。
 ```
 
-#### 编辑：`flow-typed/sample.js`：
+#### 在`flow-typed/global.js`中已经预先定义了以下通用类型：
 
 [如果不知道这是什么鬼，戳这里](https://flowtype.org/docs/getting-started.html#_)
+
+```javascript
+declare var API_ROOT: string;
+declare type Action = {
+    type: $Subtype<string>,
+    error?: boolean,
+    payload?: {} | ?Error,
+    meta?: any,
+}
+declare type APIClientAction = {
+    type: $Subtype<string>,
+    payload: {
+        url: string,
+        header?: {},
+        method?: 'GET' | 'POST',
+        body?: any,
+    },
+}
+```
+
+#### 编辑`flow-typed/sample.js`
+
+为即将编写的`sample`模块定义一些全局通用的类型：
 
 ```javascript
 // 接口返回数据
@@ -245,27 +269,29 @@ declare type SampleState = {
 };
 ```
 
-#### 编辑: `modules/sample/action/getSample.js`
+#### 编辑`modules/sample/action/getSample.js`
+
+定义一个action，注释中含有形如`// flow` 或 类似以下`@flow`的JS文件将会通过flow进行类型检测。
 
 ```javascript
-// flow
+/**
+ * @flow
+ * @author xuyuanxiang
+ * @date 2017/3/23
+ */
 import querystring from 'querystring';
 
-export default (query: SampleQueryParams): APIAction => ({
+export default (query: SampleQueryParams): APIClientAction => ({
     type: 'GET_SAMPLE',
     payload: {
-        url: `/api/v1/sample?${querystring.stringify(query)}`,
+        url: `${API_ROOT}/v1/sample?${querystring.stringify(query)}`,
     },
 });
 ```
 
-#### 编辑：`modules/sample/action/index.js`
+#### 编辑`modules/sample/reducer/data.js`
 
-```javascript
-export getSample from './getSample';
-```
-
-#### 编辑: `modules/sample/reducer/sample.js`
+定义一个名为`data`的reducer，用于处理接口返回的数据：
 
 ```javascript
 // flow
@@ -282,7 +308,9 @@ export default (state: {} | Sample = {}, action: Action): {} | Sample => {
 };
 ```
 
-#### 编辑: `modules/sample/reducer/loading.js`
+#### 编辑`modules/sample/reducer/loading.js`
+
+定义一个名为`loading`的reducer，用于在Ajax异步请求过程中在界面上展示菊花：
 
 ```javascript
 // flow
@@ -298,79 +326,136 @@ export default (state: boolean = false, action: Action): boolean => {
 };
 ```
 
-#### 编辑: `modules/sample/reducer/index.js`
+#### 编辑`modules/sample/reducer/index.js`
+
+将`data`和`loading`这两个reducer导出，方便取用：
 
 ```javascript
 export loading from './loading';
 export sample from './sample';
-
 ```
 
 #### 编辑: `modules/sample/SampleApp.js`
 
 ```javascript
 /**
+ * @module
+ * @description
+ *
  * @flow
  * @author xuyuanxiang
- * @date 2017/3/23
+ * @date 2017/4/20
  */
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import type { Dispatch } from 'redux';
-import { getSample } from './action';
+import Preloader from '../core/Preloader';
+import NegativeMessage from '../core/NegativeMessage';
+import NotFound from '../core/NotFound';
+import getSample from './action/getSample';
+import resetSample from './action/resetSample';
 import styles from './SampleApp.scss';
 
+// 从全局State中选取的props
 type StateProps = {
-    sample: ?Sample,
     loading: boolean,
+    error: string,
+    data: Sample,
+    search: SampleQueryParams,
 };
 
+// 带有dispatch monkey patch函数类型的props
 type DispatchProps = {
-    getSample: (query: SampleQueryParams) => APIAction,
+    getSample: (query: SampleQueryParams) => APIClientAction, // 返回APIClient类型Action的creator函数
+    resetSample: () => Action, // 返回常规Action的creator函数
 };
 
+// 这里导出class是为了用于稍后的单元测试
 export class SampleApp extends React.PureComponent {
-
-    componentDidMount() {
-        const query: SampleQueryParams = {
+    static defaultProps = {
+        search: {
             username: 'xuyuanxiang',
-        };
-        this.props.getSample(query);
+        },
+    };
+
+    // 组件初次加载时，调用查询接口
+    componentDidMount() {
+        this.props.getSample(this.props.search);
     }
 
+    // 并集
     props: StateProps & DispatchProps;
+
+    handleReset() {
+        this.props.resetSample();
+    }
 
     render() {
         if (this.props.loading) {
-            return <p>Loading...</p>;
+            return <Preloader visible/>;
         }
+        const error = this.props.error;
+        if (error) {
+            return (
+                <NegativeMessage visible>
+                    <p>{error}</p>
+                </NegativeMessage>
+            );
+        }
+        const data: Sample = this.props.data;
         return (
-            <p className={styles.text}>
-                {JSON.stringify(this.props.sample)}
-            </p>
+            <div className={styles.content}>
+                {
+                    data && data.name ?
+                        <div>
+                            <p className={styles.text}>{data.name}</p>
+                            <button
+                                type="button"
+                                onClick={() => this.handleReset()}
+                            >
+                                Reset
+                            </button>
+                        </div>
+                        :
+                        <NotFound visible>
+                            <p>查询无结果</p>
+                        </NotFound>
+                }
+            </div>
         );
     }
 }
 
 export default connect(
-    (state: SampleState): StateProps => ({ sample: state.sample, loading: state.loading }),
-    (dispatch: Dispatch<APIAction>): DispatchProps => bindActionCreators({ getSample }, dispatch),
+    (state: SampleState): StateProps => ({ ...state }),
+    (dispatch: Dispatch<APIClientAction | Action>): DispatchProps =>
+        bindActionCreators({ getSample, resetSample }, dispatch),
 )(SampleApp);
 
 ```
 
-#### 编辑: `modules/sample/SampleApp.scss`
+#### 编辑`modules/sample/SampleApp.scss`
+
+`px2rem`来自`../core/mixins`，是基于这篇文章的实现：[《移动端高清、多屏适配方案》](http://div.io/topic/1092?page=1#4713)。
 
 ```css
+@import '../core/mixins';
+@import '../core/base';
+
 .text {
-  font-size: 14px;
   text-align: center;
+  color: #b3b3b3;
+
+  @include px2rem(font-size, 28);
+  @include px2rem(line-height, 28);
 }
 
 ```
 
-#### 编辑单元测试：`modules/sample/__tests__/SampleApp.spec.js`
+#### 编辑`modules/sample/__tests__/SampleApp.spec.js`
+
+SampleApp组件的单元测试（其他文件单元测试文件略）：
 
 ```javascript
 /**
@@ -428,22 +513,36 @@ describe('SampleApp suite', () => {
 
 ```
 
-#### 编辑: `public/sample/index.js`
+#### 编辑`public/sample/index.js`
 
 ```javascript
 import 'babel-polyfill';
+import querystring from 'querystring';
+// 因为webpack.config.js中自定义了resolve选项所以可以这样引入，而无需以文件路径的形式引入。
 import ConnectedSampleApp from 'sample/SampleApp';
-import * as reducers from 'sample/reducer';
+// 因为webpack.config.js中自定义了resolve选项所以可以这样引入，而无需以文件路径的形式引入。
+import { loading, error, data, search } from 'sample/reducer';
+// 因为webpack.config.js中自定义了resolve选项所以可以这样引入，而无需以文件路径的形式引入。
 import bootstrap from 'core/bootstrap';
 
-const container = document.createElement('div');
-document.body.appendChild(container);
+// 组装redux reduer
+const reducers = { loading, error, data, search };
 
-bootstrap(ConnectedSampleApp, { reducers, container });
+// 从路由中获取query参数：`username`。
+const { username } = querystring.parse(location.search.replace('?', ''));
 
+// redux应用初始状态
+const initialState = { search: { username } };
+
+// 启动应用
+bootstrap(ConnectedSampleApp, {
+    reducers,
+    initialState,
+    container: document.getElementById('container'),
+});
 ```
 
-#### 编辑: `public/sample/package.json`
+#### 编辑`public/sample/package.json`
 
 ```json
 {
@@ -452,7 +551,7 @@ bootstrap(ConnectedSampleApp, { reducers, container });
 }
 ```
 
-#### 编辑: `api/__mocks__/v1/sample.js`
+#### 编辑`api/__mocks__/v1/sample.js`
 
 ```javascript
 require('isomorphic-fetch');
@@ -469,6 +568,8 @@ exports.default = function* sampleApi() {
 };
 ```
 
+**其余代码略，完整的`sample`示例代码详见：`feature/example`分支。**
+
 #### 启动
 
 ```npm
@@ -481,4 +582,4 @@ npm run dev
 open http://localhost:3000/sample
 ```
 
-**完整的`sample`示例代码详见：`feature/example`分支。**
+
