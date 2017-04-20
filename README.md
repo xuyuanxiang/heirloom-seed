@@ -1,5 +1,7 @@
 # heirloom-seed
 
+我的模板工程
+
 ## 相关项目
 
 1. [heirloom-core]()
@@ -86,25 +88,25 @@ heirloom-seed/
 └── index.js-----------------------------------用于生产环境的Node 服务器
 ```
 
-### **api/**目录
+### `api/`目录
 
 Ajax API路由自动按文件目录映射。
 
 e.g. `NODE_ENV=production`时: `http://localhost:3000/api/v1/sample` => `api/v1/sample.js`
 
-### **api/__mocks__/**目录
+### `api/__mocks__/`目录
 
 本地Mock接口返回数据。
 
 e.g. `NODE_ENV=development`时：`http://localhost:3000/api/v1/sample` => `api/__mocks__/v1/sample.js`
 
-### **public/**目录
+### `public/`目录
 
 浏览器端页面路由按文件目录映射。
 
 e.g. `http://localhost:3000/sample/` => `public/sample/index.html`
 
-### **modules/**目录
+### `modules/`目录
 
 可复用的模块／组件／工具／类库... 如有需要可分离为独立的子项目。
 
