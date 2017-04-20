@@ -1,0 +1,106 @@
+// mixin
+// 需要随 dpr 和屏幕大小缩放的尺寸
+@mixin px2rem($name, $px) {
+  #{$name}: $px / 75 * 1rem;
+}
+
+// 需要在各个屏幕和 dpr 都保持一致尺寸
+@mixin px2px($name, $px) {
+  #{$name}: round($px / 2) * 1px;
+
+  [data-dpr='2'] & {
+    #{$name}: $px * 1px;
+  }
+
+  [data-dpr='2.5'] & {
+    #{$name}: round($px * 2.5 / 2) * 1px;
+  }
+
+  [data-dpr='2.75'] & {
+    #{$name}: round($px * 2.75 / 2) * 1px;
+  }
+
+  [data-dpr='3'] & {
+    #{$name}: round($px / 2 * 3) * 1px;
+  }
+
+  [data-dpr='4'] & {
+    #{$name}: $px * 2px;
+  }
+}
+
+@mixin clearfix() {
+  &::before,
+  &::after {
+    content: ' ';
+    display: table;
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+
+@mixin hairline($position, $color) {
+  @if $position == 'top' {
+    &::before {
+      background-color: $color;
+      bottom: auto;
+      content: '';
+      display: block;
+      height: 1px;
+      left: 0;
+      position: absolute;
+      right: auto;
+      top: 0;
+      transform-origin: 50% 0%;
+      width: 100%;
+      z-index: 15;
+    }
+  } @else if ($position == 'left') {
+    &::before {
+      background-color: $color;
+      bottom: auto;
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: auto;
+      width: 1px;
+      height: 100%;
+      display: block;
+      z-index: 15;
+      transform-origin: 0% 50%;
+    }
+  } @else if $position == 'bottom' {
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: auto;
+      top: auto;
+      height: 1px;
+      width: 100%;
+      background-color: $color;
+      display: block;
+      z-index: 15;
+      transform-origin: 50% 100%;
+    }
+  } @else if $position == 'right' {
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      left: auto;
+      bottom: auto;
+      width: 1px;
+      height: 100%;
+      background-color: $color;
+      display: block;
+      z-index: 15;
+      transform-origin: 100% 50%;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@import '../core/mixins';
+@import '../core/base';
+
+.text {
+  text-align: center;
+  color: #b3b3b3;
+
+  @include px2rem(font-size, 28);
+  @include px2rem(line-height, 28);
+}

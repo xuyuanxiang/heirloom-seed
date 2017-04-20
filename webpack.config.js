@@ -1,6 +1,11 @@
-/**
- * @name
- * @author xuyuanxiang
- * @date 16/8/17
- */
-module.exports = require('./configs');
+const path = require('path');
+
+module.exports = {
+    externals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+    },
+    resolve: {
+        modules: [path.resolve(__dirname, 'modules'), 'node_modules'],
+    },
+};

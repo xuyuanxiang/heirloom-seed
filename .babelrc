@@ -1,11 +1,23 @@
 {
-  "presets": [
-    "es2015",
-    "stage-1",
-    "react"
-  ],
-  "plugins": [
-    "transform-react-remove-prop-types",
-    "transform-runtime"
-  ]
+    "env": {
+        "test": {
+            "presets": [
+                [
+                    "env",
+                    {
+                        "targets": {
+                            "node": 6.9
+                        }
+                    }
+                ],
+                "es2017",
+                "react",
+                "stage-1"
+            ],
+            "plugins": [
+                "transform-es2015-modules-commonjs",
+                "dynamic-import-node"
+            ]
+        }
+    }
 }

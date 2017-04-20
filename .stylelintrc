@@ -1,0 +1,25 @@
+{
+    "extends": "stylelint-config-sass-guidelines",
+    "rules": {
+        "indentation": [
+            2,
+            {
+                "except": [
+                    "value"
+                ]
+            }
+        ],
+        "order/declaration-block-properties-alphabetical-order": null,
+        "selector-class-pattern": null,
+        "order/properties-alphabetical-order": null,
+        "selector-no-qualifying-type": [
+            true,
+            {
+                "ignore": [
+                    "attribute",
+                    "class"
+                ]
+            }
+        ]
+    }
+}

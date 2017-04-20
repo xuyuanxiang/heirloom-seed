@@ -1,0 +1,42 @@
+@import 'mixins';
+
+.negative {
+  @include px2rem(padding-top, 144);
+
+  text-align: center;
+
+  img {
+    max-width: 60%;
+  }
+
+  p {
+    @include px2rem(font-size, 26);
+    @include px2rem(margin-top, 36);
+
+    color: #7b7b7b;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  a,
+  button {
+    border: 0;
+    border-radius: 25px;
+    background: #ff546e;
+    color: #fff;
+    outline: none;
+    -webkit-tap-highlight-color: #f0eff4;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+
+    @include px2rem(font-size, 26);
+    @include px2rem(margin-top, 90);
+    @include px2rem(padding-top, 29);
+    @include px2rem(padding-right, 104);
+    @include px2rem(padding-bottom, 29);
+    @include px2rem(padding-left, 104);
+  }
+}

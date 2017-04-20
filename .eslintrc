@@ -1,0 +1,96 @@
+{
+    "env": {
+        "node": true,
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "jasmine": true,
+        "jest": true
+    },
+    "globals": {
+        "bughd": true,
+        "_vds": true,
+        "px2rem": true,
+        "px2px": true,
+        "API_ROOT": true
+    },
+    "plugins": [
+        "react",
+        "flowtype"
+    ],
+    "extends": [
+        "airbnb",
+        "plugin:react/recommended",
+        "plugin:flowtype/recommended"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 7,
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "camelcase": [
+            "off"
+        ],
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "react/jsx-indent": [
+            "error",
+            4
+        ],
+        "react/jsx-space-before-closing": [
+            "off"
+        ],
+        "react/jsx-tag-spacing": [
+            "off"
+        ],
+        "react/jsx-filename-extension": [
+            "off"
+        ],
+        "react/react-in-jsx-scope": [
+            "off"
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "require-yield": [
+            "warn"
+        ],
+        "class-methods-use-this": [
+            "off"
+        ],
+        "react/self-closing-comp": [
+            "error",
+            {
+                "html": false
+            }
+        ],
+        "import/no-extraneous-dependencies": [
+            "off"
+        ],
+        "react/jsx-indent-props": [
+            "error",
+            4
+        ],
+        "react/prefer-stateless-function": [
+            "warn"
+        ],
+        "react/no-array-index-key": [
+            "off"
+        ]
+    }
+}

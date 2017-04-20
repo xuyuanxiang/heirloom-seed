@@ -1,0 +1,19 @@
+@import 'mixins';
+
+.notFound {
+  background: #f5f5f5;
+  text-align: center;
+
+  @include px2rem(padding-top, 366);
+
+  img {
+    @include px2rem(height, 178);
+  }
+
+  p {
+    @include px2rem(margin-top, 52);
+    @include px2rem(font-size, 26);
+
+    color: #b3b3b3;
+  }
+}

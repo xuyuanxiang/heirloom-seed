@@ -1,0 +1,44 @@
+@import 'mixins';
+@import 'normalize.css';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-family: 'Helvetica Neue', Neue Arial, Helvetica, sans-serif;
+  background: #f0eff4;
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.content > * {
+  transform: translateZ(0);
+}
+
+.pullLeft {
+  float: left;
+}
+
+.pullRight {
+  float: right;
+}
+
+.textRight {
+  text-align: right;
+}

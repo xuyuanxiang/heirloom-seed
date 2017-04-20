@@ -1,0 +1,7 @@
+apps:
+  - script: './index.js'
+    name: 'heirloom-seed'
+    exec_mode: 'cluster'
+    instances: 'max'
+    combine_logs: true
+    autorestart: true

@@ -1,0 +1,16 @@
+version: '2'
+services:
+  heirloom-seed:
+    image: heirloom-seed:1.0.0
+    build:
+      context: .
+      args:
+        API_ROOT: 'http://api.xuyuanxiang.me'
+    restart: always
+    container_name: heirloom-seed
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/log/heirloom:/root/.pm2/logs/

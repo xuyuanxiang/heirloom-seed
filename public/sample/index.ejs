@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>示例</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobileOptimized" content="width">
+    <meta name="handheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="robots" content="noindex, nofollow">
+    <script type="text/javascript">
+        (function (doc, win, undefined) {
+            var dpr, rem, scale;
+            var docEl = doc.documentElement;
+            var fontEl = doc.createElement('style');
+            var metaEl = doc.querySelector('meta[name="viewport"]');
+            dpr = win.devicePixelRatio || 1;
+            rem = docEl.clientWidth / 10;
+            scale = 1 / dpr;
+            docEl.firstElementChild.appendChild(fontEl);
+            fontEl.innerHTML = 'html{font-size: ' + rem + 'px !important;}';
+            win.rem2px = function (v) {
+                v = parseFloat(v);
+                return v * 75
+            };
+            win.px2rem = function (v) {
+                v = parseFloat(v);
+                return v / 75;
+            };
+            win.px2px = function (v) {
+                v = parseFloat(v);
+                return v * dpr / 2;
+            };
+            win.dpr = dpr;
+            win.rem = rem;
+        })(document, window);
+    </script>
+</head>
+<body>
+<div id="container"></div>
+<script src="//cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+<script src="//cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+</body>
+</html>
