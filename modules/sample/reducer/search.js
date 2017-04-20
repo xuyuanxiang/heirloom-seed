@@ -6,10 +6,12 @@
  * @author xuyuanxiang
  * @date 2017/4/20
  */
-export default (state: SampleQueryParams, action: Action): SampleQueryParams => {
+const initialState = { username: '' };
+
+export default (state: SampleQueryParams = initialState, action: Action): SampleQueryParams => {
     switch (action.type) {
         case 'RESET_SAMPLE':
-            return { search: '' };
+            return initialState;
         default:
             return state;
     }

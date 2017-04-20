@@ -21,11 +21,16 @@ const reducers = { loading, error, data, search };
 const { username } = querystring.parse(location.search.replace('?', ''));
 
 // redux应用初始状态
-const initialState = { search: { username } };
+const initialState = { search: {} };
+if (username) {
+    initialState.search.username = username;
+}
 
+const container = document.createElement('div');
+document.body.appendChild(container);
 // 启动应用
 bootstrap(ConnectedSampleApp, {
     reducers,
     initialState,
-    container: document.getElementById('container'),
+    container,
 });

@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        API_ROOT: 'http://api.xuyuanxiang.me'
+        BACK_END: 'http://api.xuyuanxiang.me'
     restart: always
     container_name: heirloom-seed
     environment:
