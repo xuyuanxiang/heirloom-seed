@@ -79,10 +79,18 @@ async function callAPI(action) {
                 },
             );
         }
+        let error;
+        if (response.status === 404) {
+            error = new Error(response.statusText);
+            error.status = response.status;
+        } else {
+            error = new Error(response.statusText);
+            error.status = response.status;
+        }
         return {
             type,
             error: true,
-            payload: new Error('系统繁忙！请稍后重试。'),
+            payload: error,
             meta: Object.assign({}, action),
         };
     }

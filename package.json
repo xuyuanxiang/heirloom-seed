@@ -17,7 +17,7 @@
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint .",
     "lint:css": "stylelint ./**/*.scss --syntax scss",
-    "flow": "flow"
+    "flow": "node_modules/.bin/flow"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -56,8 +56,9 @@
     "cross-env": "^4.0.0",
     "debug": "^2.6.3",
     "enzyme": "^2.8.2",
+    "heirloom-api-plugin": "^1.0.0",
     "heirloom-core": "^2.0.1",
-    "heirloom-static-plugin": "^2.0.1",
+    "heirloom-static-plugin": "^2.0.2",
     "identity-obj-proxy": "^3.0.0",
     "iscroll": "^5.2.0",
     "isomorphic-fetch": "^2.2.1",

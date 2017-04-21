@@ -17,13 +17,3 @@ exports.PORT = process.env.PORT || 3000;
 exports.NODE_ENV = process.env.NODE_ENV || 'production';
 exports.LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 exports.LOG_DIR = LOG_DIR;
-exports.PUBLIC_DIR = path.join(ROOT, 'public');
-exports.TARGET_DIR = path.join(ROOT, 'dist');
-exports.API_ROOT = '/api/';
-
-if (exports.NODE_ENV === 'development') {
-    // 开发时，本地mock接口返回数据
-    exports.API_DIR = path.join(ROOT, 'api/__mocks__');
-} else {
-    exports.API_DIR = path.join(ROOT, 'api');
-}

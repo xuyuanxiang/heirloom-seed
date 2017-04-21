@@ -19,7 +19,7 @@ import styles from './SampleApp.scss';
 
 type StateProps = {
     loading: boolean,
-    error: string,
+    error: ErrorReducer,
     data: Sample,
     search: SampleQueryParams,
 };
@@ -30,11 +30,6 @@ type DispatchProps = {
 };
 
 export class SampleApp extends React.PureComponent {
-    static defaultProps = {
-        search: {
-            username: 'xuyuanxiang',
-        },
-    };
 
     componentDidMount() {
         this.props.getSample(this.props.search);
@@ -50,11 +45,18 @@ export class SampleApp extends React.PureComponent {
         if (this.props.loading) {
             return <Preloader visible/>;
         }
-        const error = this.props.error;
-        if (error) {
+        const { status, message } = this.props.error;
+        if (status || message) {
+            if (status === 404) {
+                return (
+                    <NotFound visible>
+                        <p>{message}</p>
+                    </NotFound>
+                );
+            }
             return (
                 <NegativeMessage visible>
-                    <p>{error}</p>
+                    <p>{message}</p>
                 </NegativeMessage>
             );
         }
@@ -63,7 +65,11 @@ export class SampleApp extends React.PureComponent {
             <div className={styles.content}>
                 {
                     data && data.name ?
-                        <div>
+                        <div className={styles.contentPadding}>
+                            <img
+                                src={data.avatar_url}
+                                alt="头像"
+                            />
                             <p className={styles.text}>{data.name}</p>
                             <button
                                 type="button"
@@ -73,9 +79,7 @@ export class SampleApp extends React.PureComponent {
                             </button>
                         </div>
                         :
-                        <NotFound visible>
-                            <p>查询无结果</p>
-                        </NotFound>
+                        null
                 }
             </div>
         );

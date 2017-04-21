@@ -40,6 +40,14 @@ global.fetch = async (url, { method, body, headers }) => {
             }
         }
     }
+    if (url === '/api/error') {
+        return {
+            ok: false,
+            status: 500,
+            statusText: 'Inner Error',
+            text: async () => '<html></html>',
+        };
+    }
     return {
         ok: false,
         text: async () => '<html></html>',
@@ -119,10 +127,12 @@ describe('apiClient middleware', () => {
         };
         await dispatch(action);
         let nextAction = next.mock.calls[1][0];
+        const error = new Error('Inner Error');
+        error.status = 500;
         expect(nextAction).toEqual({
             type: 'DID_FOO',
             error: true,
-            payload: new Error('系统繁忙！请稍后重试。'),
+            payload: error,
             meta: action,
         });
     });

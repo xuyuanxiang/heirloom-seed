@@ -4,10 +4,13 @@
  * @date 2017/3/20
  */
 declare var API_ROOT: string;
+declare class Exception extends Error {
+    status: number
+}
 declare type Action = {
     type: $Subtype<string>,
     error?: boolean,
-    payload?: {} | ?Error,
+    payload?: {} | ?Exception,
     meta?: any,
 }
 declare type APIClientAction = {
@@ -19,3 +22,4 @@ declare type APIClientAction = {
         body?: any,
     },
 }
+declare type ErrorReducer = { status?: number, message?: string };

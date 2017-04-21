@@ -45,10 +45,13 @@ public/------------------------------------项目源码
 
 ```javascript
 declare var API_ROOT: string;
+declare class Exception extends Error {
+    status: number
+}
 declare type Action = {
     type: $Subtype<string>,
     error?: boolean,
-    payload?: {} | ?Error,
+    payload?: {} | ?Exception,
     meta?: any,
 }
 declare type APIClientAction = {
@@ -60,6 +63,8 @@ declare type APIClientAction = {
         body?: any,
     },
 }
+declare type ErrorReducer = { status?: number, message?: string };
+
 ```
 
 ### 编辑`flow-typed/sample.js`
@@ -72,6 +77,7 @@ declare type Sample = {
     id: number,
     site_admin: boolean,
     name: string,
+    avatar_url: string,
 };
 
 // 接口查询参数
@@ -79,10 +85,10 @@ declare type SampleQueryParams = {
     username?: string,
 };
 
-// sample模块redux全局State
+// Redux 全局 State
 declare type SampleState = {
     loading: boolean,
-    error: string,
+    error: ErrorReducer,
     search: SampleQueryParams,
     data: Sample,
 };
@@ -165,20 +171,16 @@ export default (state: boolean = false, action: Action): boolean => {
  * @author xuyuanxiang
  * @date 2017/3/21
  */
-export default (state: string = '', action: Action): string => {
-    switch (action.type) {
-        case 'DID_GET_SAMPLE':
-            if (action.error && action.payload instanceof Error) {
-                return `查询Sample失败：${action.payload.message}`;
-            }
-            return '';
-        default: {
-            if (action.error === true && action.payload instanceof Error) {
-                return action.payload.message;
-            }
-            return '';
-        }
+type ErrorReducer = { status?: number, message?: string };
+export default (state: ErrorReducer = {}, action: Action): ErrorReducer => {
+    if (action.error && action.payload instanceof Error) {
+        const { status, message } = action.payload;
+        return {
+            status,
+            message: status === 404 ? '查询无结果' : `查询失败：${message}`,
+        };
     }
+    return {};
 };
 
 ```
@@ -243,34 +245,24 @@ import getSample from './action/getSample';
 import resetSample from './action/resetSample';
 import styles from './SampleApp.scss';
 
-// 从全局State中选取的props
 type StateProps = {
     loading: boolean,
-    error: string,
+    error: ErrorReducer,
     data: Sample,
     search: SampleQueryParams,
 };
 
-// 带有dispatch monkey patch函数类型的props
 type DispatchProps = {
-    getSample: (query: SampleQueryParams) => APIClientAction, // 返回APIClient类型Action的creator函数
-    resetSample: () => Action, // 返回常规Action的creator函数
+    getSample: (query: SampleQueryParams) => APIClientAction,
+    resetSample: () => Action,
 };
 
-// 这里导出class是为了用于稍后的单元测试
 export class SampleApp extends React.PureComponent {
-    static defaultProps = {
-        search: {
-            username: 'xuyuanxiang',
-        },
-    };
 
-    // 组件初次加载时，调用查询接口
     componentDidMount() {
         this.props.getSample(this.props.search);
     }
 
-    // 并集
     props: StateProps & DispatchProps;
 
     handleReset() {
@@ -281,11 +273,18 @@ export class SampleApp extends React.PureComponent {
         if (this.props.loading) {
             return <Preloader visible/>;
         }
-        const error = this.props.error;
-        if (error) {
+        const { status, message } = this.props.error;
+        if (status || message) {
+            if (status === 404) {
+                return (
+                    <NotFound visible>
+                        <p>{message}</p>
+                    </NotFound>
+                );
+            }
             return (
                 <NegativeMessage visible>
-                    <p>{error}</p>
+                    <p>{message}</p>
                 </NegativeMessage>
             );
         }
@@ -294,7 +293,11 @@ export class SampleApp extends React.PureComponent {
             <div className={styles.content}>
                 {
                     data && data.name ?
-                        <div>
+                        <div className={styles.contentPadding}>
+                            <img
+                                src={data.avatar_url}
+                                alt="头像"
+                            />
                             <p className={styles.text}>{data.name}</p>
                             <button
                                 type="button"
@@ -304,9 +307,7 @@ export class SampleApp extends React.PureComponent {
                             </button>
                         </div>
                         :
-                        <NotFound visible>
-                            <p>查询无结果</p>
-                        </NotFound>
+                        null
                 }
             </div>
         );
@@ -331,10 +332,19 @@ export default connect(
 
 .text {
   text-align: center;
-  color: #b3b3b3;
+  color: #000;
 
   @include px2rem(font-size, 28);
-  @include px2rem(line-height, 28);
+  @include px2rem(line-height, 44);
+}
+
+.contentPadding {
+  @include px2rem(padding, 15);
+
+  img {
+    max-width: 100%;
+  }
+
 }
 
 ```
@@ -345,6 +355,9 @@ SampleApp组件的单元测试（其他文件单元测试文件略）,编写过�
 
 ```javascript
 /**
+ * @module
+ * @description
+ *
  * @flow
  * @author xuyuanxiang
  * @date 2017/4/20
@@ -410,7 +423,7 @@ describe('SampleApp suite', () => {
         const ele = shallow(
             <SampleApp
                 {...props}
-                error="something was wrong!"
+                error={{ status: 500, message: "something was wrong!" }}
             />
         );
         expect(ele.is(NegativeMessage)).toBe(true);
@@ -431,12 +444,11 @@ describe('SampleApp suite', () => {
         const ele = shallow(
             <SampleApp
                 {...props}
-                data={{}}
-                loading={false}
+                error={{ status: 404, message: "查询无结果" }}
             />
         );
-        expect(ele.childAt(0).is(NotFound)).toBe(true);
-        expect(ele.find(NotFound).contains(<p>查询无结果</p>)).toBe(true);
+        expect(ele.is(NotFound)).toBe(true);
+        expect(ele.contains(<p>查询无结果</p>)).toBe(true);
     });
 
 });
@@ -477,29 +489,68 @@ bootstrap(ConnectedSampleApp, {
 ```json
 {
   "name": "sample",
-  "title": "演示"
+  "title": "演示",
+  "mobile": true
 }
 ```
 
-*到此时，执行`npm run dev && open http://localhost:3000/sample`将会看到页面显示：`查询Sample失败：系统繁忙！请稍后重试。`的错误信息。*
+### 编辑`api/v1/__mocks__/sample.js`
 
-### 编辑`api/__mocks__/v1/sample.js`
-
-Mock一个供`NODE_ENV=development`时调用的sample接口:
+Mock sample接口:
 
 ```javascript
+/**
+ * @module
+ * @description
+ * @author xuyuanxiang
+ * @date 2017/4/21
+ */
 require('isomorphic-fetch');
 
-exports.default = function* sampleApi() {
-    const response = yield fetch(`https://api.github.com/users/${this.query.username}`);
+exports.get = async function (ctx) {
+    const username = ctx.query.username;
+    const response = await fetch(`https://api.github.com/users/${username}`);
     if (response.ok) {
-        const data = yield response.json();
-        this.body = { code: '10000', data, msg: 'succ' };
+        ctx.body = await response.json();
     } else {
-        const text = yield response.text();
+        const text = await response.text();
         throw new Error(text);
     }
-};
+}
+
+// exports.post = function(ctx) {...}
+
+```
+
+### 编辑`api/v1/sample.js`
+
+生产环境 sample接口（效果与之前编写的Mock接口一致，此处为示范ES6 Class的写法，了解更多，请移步：[heirloom-api-plugin](https://github.com/xuyuanxiang/heirloom-api-plugin#heirloom-api-plugin)）：
+
+```javascript
+/**
+ * @module
+ * @description
+ * @author xuyuanxiang
+ * @date 2017/4/21
+ */
+require('isomorphic-fetch');
+
+class SampleAPI {
+
+    async get(ctx) {
+        const username = ctx.query.username;
+        const response = await fetch(`https://api.github.com/users/${username}`);
+        if (response.ok) {
+            ctx.body = await response.json();
+        } else {
+            const text = await response.text();
+            throw new Error(text);
+        }
+    }
+}
+
+module.exports = new SampleAPI();
+
 ```
 
 **到此为止，编码结束。完整的`sample`示例代码详见：`feature/example`分支。**

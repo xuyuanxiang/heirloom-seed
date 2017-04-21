@@ -1,7 +1,6 @@
 @import 'mixins';
 
 .notFound {
-  background: #f5f5f5;
   text-align: center;
 
   @include px2rem(padding-top, 366);

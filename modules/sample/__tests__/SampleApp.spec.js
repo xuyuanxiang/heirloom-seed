@@ -67,7 +67,7 @@ describe('SampleApp suite', () => {
         const ele = shallow(
             <SampleApp
                 {...props}
-                error="something was wrong!"
+                error={{ status: 500, message: "something was wrong!" }}
             />
         );
         expect(ele.is(NegativeMessage)).toBe(true);
@@ -88,12 +88,11 @@ describe('SampleApp suite', () => {
         const ele = shallow(
             <SampleApp
                 {...props}
-                data={{}}
-                loading={false}
+                error={{ status: 404, message: "查询无结果" }}
             />
         );
-        expect(ele.childAt(0).is(NotFound)).toBe(true);
-        expect(ele.find(NotFound).contains(<p>查询无结果</p>)).toBe(true);
+        expect(ele.is(NotFound)).toBe(true);
+        expect(ele.contains(<p>查询无结果</p>)).toBe(true);
     });
 
 });

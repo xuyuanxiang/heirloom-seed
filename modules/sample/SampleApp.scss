@@ -3,8 +3,17 @@
 
 .text {
   text-align: center;
-  color: #b3b3b3;
+  color: #000;
 
   @include px2rem(font-size, 28);
-  @include px2rem(line-height, 28);
+  @include px2rem(line-height, 44);
+}
+
+.contentPadding {
+  @include px2rem(padding, 15);
+
+  img {
+    max-width: 100%;
+  }
+
 }

@@ -7,6 +7,7 @@ const NormalServer = require('heirloom-core').NormalServer;
 const KoaEngine = require('heirloom-core').KoaEngine;
 const StaticDevPlugin = require('heirloom-static-plugin').StaticDevPlugin;
 const StaticPlugin = require('heirloom-static-plugin').StaticPlugin;
+const APIPlugin = require('heirloom-api-plugin').HeirloomAPIPlugin;
 const log4js = require('log4js');
 const constants = require('./conf/constants');
 
@@ -19,16 +20,15 @@ const server = new NormalServer({
     port: 3000,
 });
 
+server.apply(new APIPlugin());
+
 if (constants.NODE_ENV === 'development') {
     server.apply(new StaticDevPlugin({
-        root: __dirname,
-        source: constants.PUBLIC_DIR,
-        define: { API_ROOT: constants.API_ROOT },
+        define: { API_ROOT: '/api' },
     }));
 } else {
     server.apply(new StaticPlugin({
-        root: __dirname,
-        source: constants.TARGET_DIR,
+        define: { API_ROOT: '/api/' },
     }));
 }
 

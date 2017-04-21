@@ -10,6 +10,8 @@ export default (state: {} | Sample = {}, action: Action): {} | Sample => {
                 return action.payload;
             }
             return {};
+        case 'RESET_SAMPLE':
+            return {};
         default:
             return state;
     }

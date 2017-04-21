@@ -11,6 +11,7 @@ declare type Sample = {
     id: number,
     site_admin: boolean,
     name: string,
+    avatar_url: string,
 };
 
 // 接口查询参数
@@ -21,7 +22,7 @@ declare type SampleQueryParams = {
 // Redux 全局 State
 declare type SampleState = {
     loading: boolean,
-    error: string,
+    error: ErrorReducer,
     search: SampleQueryParams,
     data: Sample,
 };
