@@ -2,6 +2,8 @@
 
 整套脚手架遵循规约重于配置的策略，其中`api/`及`/public`目录层级结构将自动映射路由到接口及客户端静态资源。
 
+目录名可以自定义，以下结构为[heirloom-api-plugin](https://github.com/xuyuanxiang/heirloom-api-plugin)以及[heirloom-static-plugin](https://github.com/xuyuanxiang/heirloom-static-plugin)缺省构造参数下的默认配置。
+
 ```yaml
 heirloom-seed/
 ├── api/---------------------------------------后端不支持跨域的接口透传或RPC接口统一封装
