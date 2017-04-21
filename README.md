@@ -5,7 +5,7 @@
 ## 相关项目
 
 1. [heirloom-core](https://github.com/xuyuanxiang/heirloom-core)
-2. [heirloom-api-plugin]()
+2. [heirloom-api-plugin](https://github.com/xuyuanxiang/heirloom-api-plugin)
 3. [heirloom-static-plugin](https://github.com/xuyuanxiang/heirloom-static-plugin)
 
 ## 快速开始
