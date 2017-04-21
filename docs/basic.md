@@ -1,5 +1,7 @@
 ## 目录结构
 
+整套脚手架遵循规约重于配置的策略，其中`api/`及`/public`目录层级结构将自动映射路由到接口及客户端静态资源。
+
 ```yaml
 heirloom-seed/
 ├── api/---------------------------------------后端不支持跨域的接口透传或RPC接口统一封装
@@ -31,7 +33,7 @@ e.g. `NODE_ENV=production`时: `http://localhost:3000/api/v1/sample` => `api/v1/
 
 本地Mock接口返回数据。
 
-e.g. `NODE_ENV=development`时：`http://localhost:3000/api/v1/sample` => `api/__mocks__/v1/sample.js`
+e.g. `NODE_ENV=development`时：`http://localhost:3000/api/v1/sample` => `api/v1/__mocks__/sample.js`
 
 ### `public/`目录
 
