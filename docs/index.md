@@ -63,6 +63,13 @@ document.body.appendChild(p);
 
 ```
 
+创建并编辑`public/sample/package.json`文件：
+```javascript
+{
+  "name": "sample"
+}
+```
+
 命令行终端执行：
 ```bash
 yarn dev
