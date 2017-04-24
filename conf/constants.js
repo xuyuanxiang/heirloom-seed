@@ -9,7 +9,21 @@ if (!fs.existsSync(LOG_DIR) || !fs.statSync(LOG_DIR).isDirectory()) {
 }
 exports.log4js = {
     appenders: [
-        { type: 'console' },
+        {
+            type: 'dateFile',
+            filename: path.join(ROOT, 'logs', 'api.log'),
+            absolute: true,
+            pattern: '-yyyy-MM-dd',
+            category: ['api'],
+            alwaysIncludePattern: true,
+        },
+        {
+            type: 'dateFile',
+            filename: path.join(ROOT, 'logs', 'server.log'),
+            absolute: true,
+            pattern: '-yyyy-MM-dd',
+            alwaysIncludePattern: true,
+        },
     ],
     replaceConsole: true,
 };
