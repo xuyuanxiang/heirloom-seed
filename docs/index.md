@@ -42,6 +42,14 @@ exports.get = function (ctx) {
 };
 ```
 
+创建并编辑`api/sample.js`文件:
+```javascript
+// GET请求
+exports.get = function (ctx) {
+    ctx.body = 'production';
+};
+```
+
 创建并编辑`public/sample/index.js`文件:
 ```javascript
 import 'babel-polyfill';
@@ -70,14 +78,24 @@ document.body.appendChild(p);
 }
 ```
 
-命令行终端执行：
+在`example`项目根目录下，命令行终端执行：
 ```bash
 yarn dev
 ```
 
 浏览器访问：
 ```bash
-open http://localhost:3000/sample
+open http://localhost:3000/sample // staging
+```
+
+结束之前执行`yarn dev`所启动的进程，后执行：
+```javascript
+yarn start
+```
+
+浏览器访问：
+```bash
+open http://localhost:3000/sample // production
 ```
 
 ## 了解更多
