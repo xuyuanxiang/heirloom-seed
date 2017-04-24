@@ -18,13 +18,13 @@ npm -g install yo
 npm -g install generator-heirloom
 ```
 
-创建你的工程（将`example`替换为你的项目名称）：
+创建你的工程（或者将`example`替换为你的项目名称）：
 ```bash
 yo heirloom example
 ```
 
 ---
-等待一切安装结束后，
+等待一切安装结束后，`cd example`:
 ---
 
 创建并编辑`api/__mocks__/sample.js`文件:
