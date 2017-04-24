@@ -29,9 +29,10 @@ npm -g install generator-heirloom
 yo heirloom example
 ```
 
----
-等待一切安装结束后，`cd example`:
----
+等待一切安装结束后：
+```bash
+cd example
+```
 
 创建并编辑`api/__mocks__/sample.js`文件:
 ```javascript
@@ -74,6 +75,6 @@ open http://localhost:3000/sample
 
 ## 了解更多
 
-+ [基础架构](https://xuyuanxiang.github.io/basic)
++ [基础架构](https://xuyuanxiang.github.io/heirloom-seed/basic)
 
-+ [开始开发一个新功能](https://xuyuanxiang.github.io/getting-started)
++ [开始开发一个新功能](https://xuyuanxiang.github.io/heirloom-seed/getting-started)

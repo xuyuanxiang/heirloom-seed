@@ -1,10 +1,11 @@
 {
   "name": "heirloom-seed",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Heirloom boilerplate",
   "main": "index.js",
   "repository": "https://github.com/xuyuanxiang/heirloom-seed.git",
   "author": "xuyuanxiang <chaos@xuyuanxiang.cn> (http://xuyuanxiang.me)",
+  "homepage": "https://xuyuanxiang.github.io/heirloom-seed",
   "license": "MIT",
   "scripts": {
     "clean": "rimraf dist",
