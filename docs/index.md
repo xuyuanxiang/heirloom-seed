@@ -6,9 +6,15 @@
 
 `规约`大多借鉴自现有的一些标准或知识体系。
 
+## 相关项目
+
+1. [heirloom-core](https://github.com/xuyuanxiang/heirloom-core)
+2. [heirloom-api-plugin](https://github.com/xuyuanxiang/heirloom-api-plugin)
+3. [heirloom-static-plugin](https://github.com/xuyuanxiang/heirloom-static-plugin)
+
 ## 快速开始
 
-全局安装[yeoman](http://yeoman.io/)（如果已安装，请跳过该步骤。）:
+全局安装[yeoman](http://yeoman.io/)（如果已安装，请跳过该步骤）:
 ```bash
 npm -g install yo
 ```
@@ -18,7 +24,7 @@ npm -g install yo
 npm -g install generator-heirloom
 ```
 
-创建你的工程（或者将`example`替换为你的项目名称）：
+新建工程（或者将`example`替换为你的项目名称）：
 ```bash
 yo heirloom example
 ```
