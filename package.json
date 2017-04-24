@@ -56,7 +56,7 @@
     "cross-env": "^4.0.0",
     "debug": "^2.6.3",
     "enzyme": "^2.8.2",
-    "heirloom-api-plugin": "^1.0.3",
+    "heirloom-api-plugin": "^1.0.5",
     "heirloom-core": "^2.0.5",
     "heirloom-static-plugin": "^2.0.5",
     "identity-obj-proxy": "^3.0.0",

@@ -1840,7 +1840,7 @@ dateformat@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/dateformat/download/dateformat-2.0.0.tgz#2743e3abb5c3fc2462e527dca445e04e9f4dee17"
 
-debug@*, debug@^2.1.1, debug@^2.2.0, debug@^2.6.0, debug@^2.6.3:
+debug@*, debug@^2.1.1, debug@^2.2.0, debug@^2.6.0, debug@^2.6.1, debug@^2.6.3:
   version "2.6.3"
   resolved "https://registry.npmjs.org/debug/-/debug-2.6.3.tgz#0f7eb8c30965ec08c72accfa0130c8b79984141d"
   dependencies:
@@ -1856,7 +1856,7 @@ debug@^0.7.2:
   version "0.7.4"
   resolved "http://registry.npm.taobao.org/debug/download/debug-0.7.4.tgz#06e1ea8082c2cb14e39806e22e2f6f757f92af39"
 
-debug@^2.6.1, debug@^2.6.4:
+debug@^2.6.4:
   version "2.6.4"
   resolved "http://registry.npm.taobao.org/debug/download/debug-2.6.4.tgz#7586a9b3c39741c0282ae33445c4e8ac74734fe0"
   dependencies:
@@ -2903,9 +2903,9 @@ he@1.1.x:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/he/download/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
-heirloom-api-plugin@^1.0.3:
-  version "1.0.3"
-  resolved "http://registry.npm.taobao.org/heirloom-api-plugin/download/heirloom-api-plugin-1.0.3.tgz#a3e5ba5b3a79b8354eb6bcb862d34e72f2f8b277"
+heirloom-api-plugin@^1.0.5:
+  version "1.0.5"
+  resolved "http://registry.npm.taobao.org/heirloom-api-plugin/download/heirloom-api-plugin-1.0.5.tgz#13964b9696a6d03fd8ce48318f615e65e2c57fde"
   dependencies:
     debug "^2.6.4"
     koa-router "^7.1.1"
@@ -4370,11 +4370,11 @@ ms@0.7.1:
   version "0.7.1"
   resolved "http://registry.npm.taobao.org/ms/download/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
 
-ms@0.7.2:
+ms@0.7.2, ms@~0.7.0:
   version "0.7.2"
   resolved "https://registry.npmjs.org/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
 
-ms@0.7.3, ms@~0.7.0:
+ms@0.7.3:
   version "0.7.3"
   resolved "http://registry.npm.taobao.org/ms/download/ms-0.7.3.tgz#708155a5e44e33f5fd0fc53e81d0d40a91be1fff"
 
