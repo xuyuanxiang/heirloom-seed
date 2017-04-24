@@ -71,3 +71,9 @@ yarn dev
 ```bash
 open http://localhost:3000/sample
 ```
+
+## 了解更多
+
++ [基础架构](https://xuyuanxiang.github.io/basic)
+
++ [开始开发一个新功能](https://xuyuanxiang.github.io/getting-started)
