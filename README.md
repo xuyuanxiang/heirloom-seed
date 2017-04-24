@@ -2,8 +2,6 @@
 
 使用之前你需要具备一些基本的[react](https://facebook.github.io/react/)以及[redux](http://redux.js.org/)框架的知识。
 
-整套脚手架遵循规约重于配置的策略，规约采用了现有的一些标准或知识体系，最大程度简化前端杂七杂八的框架或工具的学习成本，开发者只需要专注于编写业务逻辑和单元测试。
-
 ## 相关项目
 
 1. [heirloom-core](https://github.com/xuyuanxiang/heirloom-core)

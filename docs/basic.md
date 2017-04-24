@@ -1,8 +1,10 @@
-## 目录结构
+## 基础架构
 
-整套脚手架遵循规约重于配置的策略，其中`api/`及`/public`目录层级结构将自动映射路由到接口及客户端静态资源。
+`api/`及`public/`目录层级结构将自动映射路由到接口及客户端静态资源。
 
-目录名可以自定义，以下结构为[heirloom-api-plugin](https://github.com/xuyuanxiang/heirloom-api-plugin)以及[heirloom-static-plugin](https://github.com/xuyuanxiang/heirloom-static-plugin)缺省构造参数下的默认配置。
+当然可通过自定义的方式，重新指定这两个目录名及位置。
+
+以下结构为[heirloom-api-plugin](https://github.com/xuyuanxiang/heirloom-api-plugin)以及[heirloom-static-plugin](https://github.com/xuyuanxiang/heirloom-static-plugin)零构造参数下的默认配置。
 
 ```yaml
 heirloom-seed/
