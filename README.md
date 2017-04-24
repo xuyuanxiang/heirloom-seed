@@ -1,6 +1,8 @@
 # heirloom-seed
 
-模板工程，使用之前你需要具备一些基本的[react](https://facebook.github.io/react/)以及[redux](http://redux.js.org/)框架的知识。
+使用之前你需要具备一些基本的[react](https://facebook.github.io/react/)以及[redux](http://redux.js.org/)框架的知识。
+
+遵循规约重于配置的策略，规约也尽量采用现有的一些标准或知识体系，尽量简化其他杂七杂八的学习成本，开发者只需要专注于编写业务逻辑和单元测试。
 
 ## 相关项目
 

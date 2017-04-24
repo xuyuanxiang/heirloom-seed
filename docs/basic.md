@@ -39,7 +39,7 @@ e.g. `NODE_ENV=development`时：`http://localhost:3000/api/v1/sample` => `api/v
 
 ### `public/`目录
 
-浏览器端页面路由按文件目录映射。
+客户端端页面路由按文件目录映射。
 
 e.g. `http://localhost:3000/sample/` => `public/sample/index.html`
 
