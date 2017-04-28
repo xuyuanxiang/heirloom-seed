@@ -1,4 +1,4 @@
-FROM node:6.10
+FROM node:7.9.0
 MAINTAINER xuyuanxiang@wosai-inc.com
 WORKDIR /app
 ARG BACK_END
